@@ -45,13 +45,10 @@ void setup() {
 }
 
 void loop() {
-    while (1) {
-        if (!huskylens.getResult(ALGORITHM_FACE_RECOGNITION)) {
-            Serial.println(F("Fail to request data from HUSKYLENS, recheck the connection!"));
-            continue;
-        }
-        break;
+    while (!huskylens.getResult(ALGORITHM_FACE_RECOGNITION)) {
+        delay(100);
     }
+
     while (huskylens.available(ALGORITHM_FACE_RECOGNITION)) {
         FaceResult *result = static_cast<FaceResult *>(huskylens.getCachedResult(ALGORITHM_FACE_RECOGNITION));
 

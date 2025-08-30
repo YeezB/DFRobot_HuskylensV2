@@ -45,13 +45,10 @@ void setup() {
 }
 
 void loop() {
-    while (1) {
-        if (!huskylens.getResult(ALGORITHM_POSE_RECOGNITION)) {
-            Serial.println(F("Fail to request data from HUSKYLENS, recheck the connection!"));
-            continue;
-        }
-        break;
+    while (!huskylens.getResult(ALGORITHM_POSE_RECOGNITION)) {
+        delay(100);
     }
+
     while (huskylens.available(ALGORITHM_POSE_RECOGNITION)) {
         PoseResult *result = static_cast<PoseResult *>(huskylens.getCachedResult(ALGORITHM_POSE_RECOGNITION));
 

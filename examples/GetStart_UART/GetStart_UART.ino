@@ -77,6 +77,6 @@ void loop() {
         Serial.println(result->name);
         Serial.print("result->content=");
         Serial.println(result->content);
-        delay(1000);
     }
+    delay(1000);
 }
