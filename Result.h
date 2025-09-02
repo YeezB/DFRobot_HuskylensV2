@@ -300,16 +300,19 @@ class PoseResult : public Result {
     int16_t reye_x, reye_y;
     int16_t lear_x, lear_y;
     int16_t rear_x, rear_y;
+
     int16_t lshoulder_x, lshoulder_y;
     int16_t rshoulder_x, rshoulder_y;
     int16_t lelbow_x, lelbow_y;
     int16_t relbow_x, relbow_y;
     int16_t lwrist_x, lwrist_y;
+    
     int16_t rwrist_x, rwrist_y;
     int16_t lhip_x, lhip_y;
     int16_t rhip_x, rhip_y;
     int16_t lknee_x, lknee_y;
     int16_t rknee_x, rknee_y;
+    
     int16_t lankle_x, lankle_y;
     int16_t rankle_x, rankle_y;
 };

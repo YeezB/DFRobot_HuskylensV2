@@ -257,7 +257,6 @@ bool ProtocolV2::timerAvailable() {
 }
 bool ProtocolV2::protocolAvailable() {
     if (wire) {
-        DBG("\n");
         if (!wire->available()) {
             wire->requestFrom(0x50, 16);
         }
