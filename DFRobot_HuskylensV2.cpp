@@ -68,7 +68,7 @@ bool HuskylensV2::available(eAlgorithm_t algo) {
     return ret;
 }
 
-Result *HuskylensV2::getCachedResult(eAlgorithm_t algo) {
+Result *HuskylensV2::popCachedResult(eAlgorithm_t algo) {
     DBG("\n");
 #ifndef LARGE_MEMORY
     algo = 0;
@@ -88,6 +88,39 @@ Result *HuskylensV2::getCachedResult(eAlgorithm_t algo) {
     }
 
     return NULL;
+}
+
+Result *HuskylensV2::getCachedCenterResult(eAlgorithm_t algo) {
+    // DBG("\n");
+#ifndef LARGE_MEMORY
+    algo = 0;
+#endif
+    int8_t  centerIndex = -1;
+    int32_t minLen      = 0x0FFFFFFF;
+    for (int8_t i = 0; i < MAX_RESULT_NUM; i++) {
+        if (result[algo][i]) {
+            uint32_t len = SQUARE(result[algo][i]->xCenter - LCD_WIDTH / 2) + SQUARE(result[algo][i]->yCenter - LCD_HEIGHT / 2);
+            if (len < minLen) {
+                minLen      = len;
+                centerIndex = i;
+            }
+        }
+    }
+    if (centerIndex != -1) {
+        return result[algo][centerIndex];
+    }
+    return NULL;
+}
+
+Result *HuskylensV2::getCachedResultByIndex(eAlgorithm_t algo, int16_t index) {
+    DBG("\n");
+#ifndef LARGE_MEMORY
+    algo = 0;
+#endif
+    if (index >= MAX_RESULT_NUM) {
+        return NULL;
+    }
+    return result[algo][index];
 }
 
 Result *HuskylensV2::getCachedResultByID(eAlgorithm_t algo, int16_t ID) {

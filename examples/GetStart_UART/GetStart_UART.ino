@@ -59,7 +59,7 @@ void loop() {
     }
 
     while (huskylens.available(ALGORITHM_ANY)) {
-        Result *result = static_cast<Result *>(huskylens.getCachedResult(ALGORITHM_ANY));
+        Result *result = static_cast<Result *>(huskylens.popCachedResult(ALGORITHM_ANY));
 
         Serial.print("result->ID=");
         Serial.println(result->ID, HEX);

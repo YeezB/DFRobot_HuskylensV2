@@ -50,7 +50,7 @@ void loop() {
     }
 
     while (huskylens.available(ALGORITHM_HAND_RECOGNITION)) {
-        HandResult *result = static_cast<HandResult *>(huskylens.getCachedResult(ALGORITHM_HAND_RECOGNITION));
+        HandResult *result = static_cast<HandResult *>(huskylens.popCachedResult(ALGORITHM_HAND_RECOGNITION));
 
         Serial.print("result->ID=");
         Serial.println(result->ID, HEX);

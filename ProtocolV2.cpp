@@ -669,3 +669,9 @@ bool ProtocolV2::clearText(eAlgorithm_t algo) {
     }
     return false;
 }
+bool ProtocolV2::saveKnowledges(eAlgorithm_t algo) {
+    return true;
+}
+bool ProtocolV2::clearKnowledges(eAlgorithm_t algo) {
+    return true;
+}

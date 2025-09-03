@@ -58,12 +58,16 @@
 #ifdef LARGE_MEMORY
 #include <ArduinoJson.h>
 #define FRAME_BUFFER_SIZE 512
-#define MAX_RESULT_NUM    6
+#define MAX_RESULT_NUM    10
+#define CMD_BUFFER_SIZE   512
 #else
 #define FRAME_BUFFER_SIZE 128
 #define MAX_RESULT_NUM    6
+#define CMD_BUFFER_SIZE   32
 #endif
-#define CMD_BUFFER_SIZE 32
+
+#define LCD_WIDTH  640
+#define LCD_HEIGHT 480
 
 #define HEADER_0_INDEX     0
 #define HEADER_1_INDEX     1
@@ -72,6 +76,8 @@
 #define CONTENT_SIZE_INDEX 4
 #define CONTENT_INDEX      5
 #define PROTOCOL_SIZE      6
+
+#define SQUARE(x) ((x) * (x))
 
 enum protocolCommand {
     COMMAND_KNOCK            = 0x20,
@@ -306,13 +312,13 @@ class PoseResult : public Result {
     int16_t lelbow_x, lelbow_y;
     int16_t relbow_x, relbow_y;
     int16_t lwrist_x, lwrist_y;
-    
+
     int16_t rwrist_x, rwrist_y;
     int16_t lhip_x, lhip_y;
     int16_t rhip_x, rhip_y;
     int16_t lknee_x, lknee_y;
     int16_t rknee_x, rknee_y;
-    
+
     int16_t lankle_x, lankle_y;
     int16_t rankle_x, rankle_y;
 };

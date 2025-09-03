@@ -18,7 +18,9 @@ class HuskylensV2 : public ProtocolV2 {
 
     bool    available(eAlgorithm_t algo);
     int8_t  getResult(eAlgorithm_t algo);
-    Result *getCachedResult(eAlgorithm_t algo);
+    Result *popCachedResult(eAlgorithm_t algo);
+    Result *getCachedCenterResult(eAlgorithm_t algo);
+    Result *getCachedResultByIndex(eAlgorithm_t algo, int16_t index);
     Result *getCachedResultByID(eAlgorithm_t algo, int16_t ID);
     int16_t getCachedResultNum(eAlgorithm_t algo);
     int16_t getCachedResultLearnedNum(eAlgorithm_t algo);
@@ -26,5 +28,9 @@ class HuskylensV2 : public ProtocolV2 {
   public:
     Result *result[ALGORITHM_COUNT][MAX_RESULT_NUM] = {NULL};
 };
+
+#define GET_RET_ITEM_NUM(func, type, item) [](type *rlt) { return rlt ? rlt->item : -1; }(static_cast<type *>(func))
+
+#define GET_RET_ITEM_STR(func, type, item) [](type *rlt) { return rlt ? rlt->item : ""; }(static_cast<type *>(func))
 
 #endif // DFROBOT_HUSKYLENS_V2_H

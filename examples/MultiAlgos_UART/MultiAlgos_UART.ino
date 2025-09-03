@@ -44,7 +44,7 @@ void loop() {
         delay(100);
     }
 
-    HandResult *handResult = static_cast<HandResult *>(huskylens.getCachedResult(ALGORITHM_HAND_RECOGNITION));
+    HandResult *handResult = static_cast<HandResult *>(huskylens.popCachedResult(ALGORITHM_HAND_RECOGNITION));
     int         x1         = handResult->index_finger_tip_x;
     int         y1         = handResult->index_finger_tip_y;
     int         x2         = handResult->thumb_tip_x;
@@ -59,7 +59,7 @@ void loop() {
         if (!huskylens.available(ALGORITHM_OBJECT_RECOGNITION)) {
             continue;
         }
-        Result *result = (huskylens.getCachedResult(ALGORITHM_OBJECT_RECOGNITION));
+        Result *result = (huskylens.popCachedResult(ALGORITHM_OBJECT_RECOGNITION));
         Serial.print("result->ID=");
         Serial.println(result->ID, HEX);
         Serial.print("result->xCenter=");

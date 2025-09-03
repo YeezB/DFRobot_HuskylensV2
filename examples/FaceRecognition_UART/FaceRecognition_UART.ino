@@ -28,7 +28,7 @@
     Serial.print(result->item##_y);      \
     Serial.println(")");
 
-// HUSKYLENS green line >> SDA; blue line >> SCL
+// HUSKYLENS green line >> SDA/TX; blue line >> SCL/RX
 HuskylensV2 huskylens;
 #define RX_PIN_P0 1
 #define TX_PIN_P1 2
@@ -38,8 +38,9 @@ void setup() {
     Serial1.begin(115200, SERIAL_8N1, RX_PIN_P0, TX_PIN_P1);
     while (!huskylens.begin(Serial1)) {
         Serial.println(F("Begin failed!"));
-        Serial.println(F("1.Please recheck the \"Protocol Type\" in HUSKYLENS (General Settings>>Protocol Type>>I2C)"));
+        Serial.println(F("1.Please recheck the \"Protocol Type\" in HUSKYLENS (General Settings>>Protocol Type>> I2C/UART)"));
         Serial.println(F("2.Please recheck the connection."));
+        Serial.println(F("green line >> SDA/TX; blue line >> SCL/RX"));
         delay(100);
     }
 }
@@ -50,7 +51,7 @@ void loop() {
     }
 
     while (huskylens.available(ALGORITHM_FACE_RECOGNITION)) {
-        FaceResult *result = static_cast<FaceResult *>(huskylens.getCachedResult(ALGORITHM_FACE_RECOGNITION));
+        FaceResult *result = static_cast<FaceResult *>(huskylens.popCachedResult(ALGORITHM_FACE_RECOGNITION));
 
         Serial.print("result->ID=");
         Serial.println(result->ID, HEX);

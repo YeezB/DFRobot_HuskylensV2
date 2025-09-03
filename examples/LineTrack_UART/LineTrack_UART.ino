@@ -49,7 +49,7 @@ void loop() {
     }
     Serial.println("\n\n\n\n");
     while (huskylens.available(ALGORITHM_LINE_TRACKING)) {
-        Result *result = static_cast<Result *>(huskylens.getCachedResult(ALGORITHM_LINE_TRACKING));
+        Result *result = static_cast<Result *>(huskylens.popCachedResult(ALGORITHM_LINE_TRACKING));
         Serial.println("------------------------------");
         Serial.print("result->ID=0x");
         Serial.println(result->ID, HEX);

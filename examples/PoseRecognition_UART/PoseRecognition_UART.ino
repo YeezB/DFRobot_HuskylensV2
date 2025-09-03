@@ -50,7 +50,7 @@ void loop() {
     }
 
     while (huskylens.available(ALGORITHM_POSE_RECOGNITION)) {
-        PoseResult *result = static_cast<PoseResult *>(huskylens.getCachedResult(ALGORITHM_POSE_RECOGNITION));
+        PoseResult *result = static_cast<PoseResult *>(huskylens.popCachedResult(ALGORITHM_POSE_RECOGNITION));
 
         Serial.print("result->ID=");
         Serial.println(result->ID, HEX);
