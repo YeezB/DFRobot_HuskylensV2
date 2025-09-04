@@ -29,8 +29,9 @@ void setup() {
     Wire.begin();
     while (!huskylens.begin(Wire)) {
         Serial.println(F("Begin failed!"));
-        Serial.println(F("1.Please recheck the \"Protocol Type\" in HUSKYLENS (General Settings>>Protocol Type>>I2C)"));
+        Serial.println(F("1.Please recheck the \"Protocol Type\" in HUSKYLENS (System Settings>>Protocol Type>> I2C/UART)"));
         Serial.println(F("2.Please recheck the connection."));
+        Serial.println(F("\tgreen line >> SDA/TX; blue line >> SCL/RX"));
         delay(100);
     }
 }
@@ -41,25 +42,25 @@ void loop() {
     }
 
     Serial.print("result->ID=");
-    Serial.println(GET_RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, ID));
+    Serial.println(RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, ID));
     Serial.print("result->Center=(");
-    Serial.print(GET_RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, xCenter));
+    Serial.print(RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, xCenter));
     Serial.print(",");
-    Serial.print(GET_RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, yCenter));
+    Serial.print(RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, yCenter));
     Serial.println(")");
     Serial.print("result->width=");
-    Serial.println(GET_RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, width));
+    Serial.println(RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, width));
     Serial.print("result->height=");
-    Serial.println(GET_RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, height));
+    Serial.println(RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, height));
     Serial.print("result->name=");
-    Serial.println(GET_RET_ITEM_STR(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, name));
+    Serial.println(RET_ITEM_STR(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, name));
     Serial.print("result->content=");
-    Serial.println(GET_RET_ITEM_STR(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, content));
+    Serial.println(RET_ITEM_STR(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, content));
 
     Serial.print("FaceResult->leye_x=");
-    Serial.println(GET_RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, leye_x));
+    Serial.println(RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, leye_x));
     Serial.print("FaceResult->leye_y=");
-    Serial.println(GET_RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, leye_y));
+    Serial.println(RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, leye_y));
 
     delay(1000);
 }

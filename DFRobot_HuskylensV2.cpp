@@ -1,6 +1,6 @@
 #include <DFRobot_HuskylensV2.h>
 
-HuskylensV2::HuskylensV2() {
+HuskylensV2::HuskylensV2() : result{} {
 }
 HuskylensV2::~HuskylensV2() {
     for (uint8_t algo = 0; algo < ALGORITHM_COUNT; algo++) {
@@ -129,6 +129,10 @@ Result *HuskylensV2::getCachedResultByID(eAlgorithm_t algo, int16_t ID) {
     algo = 0;
 #endif
     for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
+
+        if (result[algo][i] == NULL) {
+            continue;
+        }
         if (result[algo][i]->used) {
             continue;
         }
@@ -137,25 +141,29 @@ Result *HuskylensV2::getCachedResultByID(eAlgorithm_t algo, int16_t ID) {
             return result[algo][i];
         }
     }
-
     return NULL;
 }
 
 int16_t HuskylensV2::getCachedResultNum(eAlgorithm_t algo) {
+    DBG("\n");
     int16_t count = 0;
 #ifndef LARGE_MEMORY
     algo = 0;
 #endif
 
     for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
+        DBG("\n");
         if (result[algo][i]) {
+            DBG("\n");
             count++;
         }
     }
+    DBG("\n");
     return count;
 }
 
 int16_t HuskylensV2::getCachedResultLearnedNum(eAlgorithm_t algo) {
+    DBG("\n");
     int16_t count = 0;
 #ifndef LARGE_MEMORY
     algo = 0;
@@ -165,6 +173,5 @@ int16_t HuskylensV2::getCachedResultLearnedNum(eAlgorithm_t algo) {
             count++;
         }
     }
-
     return count;
 }

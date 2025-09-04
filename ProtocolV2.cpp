@@ -205,6 +205,7 @@ bool husky_lens_protocol_read_end() {
     }
     return content_current == content_end;
 }
+
 bool ProtocolV2::wait(uint8_t command) {
     timerBegin();
     while (!timerAvailable()) {
@@ -521,7 +522,7 @@ bool ProtocolV2::setMultiAlgorithmRatio(int8_t ratio0, int8_t ratio1, int8_t rat
 #endif
 bool ProtocolV2::setLearningRectPosition(eAlgorithm_t algo, int16_t x1, int16_t y1, int16_t x2, int16_t y2) {
     DBG("\n");
-    uint8_t *buffer = husky_lens_protocol_write_begin(algo, COMMAND_SET_BLOCK_POSITION);
+    uint8_t *buffer = husky_lens_protocol_write_begin(algo, COMMAND_SET_LEARN_BLOCK_POSITION);
     husky_lens_protocol_write_uint8(0);
     husky_lens_protocol_write_uint8(0);
 
@@ -658,7 +659,7 @@ bool ProtocolV2::drawText(eAlgorithm_t algo, uint8_t colorID, int16_t x, int16_t
 
 bool ProtocolV2::clearText(eAlgorithm_t algo) {
     DBG("\n");
-    uint8_t *buffer = husky_lens_protocol_write_begin(algo, COMMAND_ACTION_CLEAN_TEXT);
+    uint8_t *buffer = husky_lens_protocol_write_begin(algo, COMMAND_ACTION_CLEAR_TEXT);
     int      length = husky_lens_protocol_write_end();
 
     for (int i = 0; i < retry; i++) {
@@ -669,9 +670,67 @@ bool ProtocolV2::clearText(eAlgorithm_t algo) {
     }
     return false;
 }
-bool ProtocolV2::saveKnowledges(eAlgorithm_t algo) {
-    return true;
+
+bool ProtocolV2::saveKnowledges(eAlgorithm_t algo, uint8_t knowledgeID) {
+    DBG("\n");
+    uint8_t *buffer = husky_lens_protocol_write_begin(algo, COMMAND_ACTION_SAVE_KNOWLEDGES);
+    husky_lens_protocol_write_uint8(knowledgeID);
+    husky_lens_protocol_write_uint8(0);
+
+    husky_lens_protocol_write_int16(0);
+    husky_lens_protocol_write_int16(0);
+    husky_lens_protocol_write_int16(0);
+    husky_lens_protocol_write_int16(0);
+    int length = husky_lens_protocol_write_end();
+
+    for (int i = 0; i < retry; i++) {
+        protocolWrite(buffer, length);
+        if (wait(COMMAND_RETURN_OK)) {
+            return true;
+        }
+    }
+    return false;
 }
-bool ProtocolV2::clearKnowledges(eAlgorithm_t algo) {
-    return true;
+bool ProtocolV2::loadKnowledges(eAlgorithm_t algo, uint8_t knowledgeID) {
+    DBG("\n");
+    uint8_t *buffer = husky_lens_protocol_write_begin(algo, COMMAND_ACTION_LOAD_KNOWLEDGES);
+    husky_lens_protocol_write_uint8(knowledgeID);
+    husky_lens_protocol_write_uint8(0);
+
+    husky_lens_protocol_write_int16(0);
+    husky_lens_protocol_write_int16(0);
+    husky_lens_protocol_write_int16(0);
+    husky_lens_protocol_write_int16(0);
+    int length = husky_lens_protocol_write_end();
+
+    for (int i = 0; i < retry; i++) {
+        protocolWrite(buffer, length);
+        if (wait(COMMAND_RETURN_OK)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool ProtocolV2::playMusic(String name, int16_t volume) {
+    DBG("\n");
+    uint8_t *buffer = husky_lens_protocol_write_begin(ALGORITHM_ANY, COMMAND_ACTION_PLAY_MUSIC);
+    husky_lens_protocol_write_uint8(0);
+    husky_lens_protocol_write_uint8(0);
+
+    husky_lens_protocol_write_int16(volume);
+    husky_lens_protocol_write_int16(0);
+    husky_lens_protocol_write_int16(0);
+    husky_lens_protocol_write_int16(0);
+    husky_lens_protocol_write_uint8(name.length());
+    husky_lens_protocol_write_buffer_uint8((uint8_t *)name.c_str(), name.length());
+    int length = husky_lens_protocol_write_end();
+
+    for (int i = 0; i < retry; i++) {
+        protocolWrite(buffer, length);
+        if (wait(COMMAND_RETURN_OK)) {
+            return true;
+        }
+    }
+    return false;
 }

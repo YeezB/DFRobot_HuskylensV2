@@ -8,7 +8,7 @@
 // 小内存（AVR）只使用基类的内容，大内存MCU（esp32 microbit）可以使用派生类内容
 class ProtocolV2 {
   public:
-    ProtocolV2() {};
+    ProtocolV2() : result{} {};
     ~ProtocolV2() {};
 
     void         protocolWrite(uint8_t *buffer, int length);
@@ -30,8 +30,9 @@ class ProtocolV2 {
     bool         clearRect(eAlgorithm_t algo);
     bool         drawText(eAlgorithm_t algo, uint8_t colorID, int16_t x, int16_t y, String text);
     bool         clearText(eAlgorithm_t algo);
-    bool         saveKnowledges(eAlgorithm_t algo);
-    bool         clearKnowledges(eAlgorithm_t algo);
+    bool         saveKnowledges(eAlgorithm_t algo, uint8_t knowledgeID);
+    bool         loadKnowledges(eAlgorithm_t algo, uint8_t knowledgeID);
+    bool         playMusic(String name, int16_t volume);
 
 #ifdef LARGE_MEMORY
     int16_t setMultiAlgorithm(eAlgorithm_t algo0, eAlgorithm_t algo1, eAlgorithm_t algo2 = ALGORITHM_ANY, eAlgorithm_t algo3 = ALGORITHM_ANY, eAlgorithm_t algo4 = ALGORITHM_ANY);
@@ -41,11 +42,11 @@ class ProtocolV2 {
     int16_t       total_results;
     int16_t       total_blocks;
     int16_t       total_arrows;
-    Result       *result[MAX_RESULT_NUM] = {NULL};
-    int16_t       retry                  = 5;
-    TwoWire      *wire                   = NULL;
-    Stream       *stream                 = NULL;
-    unsigned long timeOutDuration        = 2000;
+    Result       *result[MAX_RESULT_NUM];
+    int16_t       retry           = 5;
+    TwoWire      *wire            = NULL;
+    Stream       *stream          = NULL;
+    unsigned long timeOutDuration = 2000;
     unsigned long timeOutTimer;
 };
 

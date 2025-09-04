@@ -38,8 +38,9 @@ void setup() {
     Serial1.begin(115200, SERIAL_8N1, RX_PIN_P0, TX_PIN_P1);
     while (!huskylens.begin(Serial1)) {
         Serial.println(F("Begin failed!"));
-        Serial.println(F("1.Please recheck the \"Protocol Type\" in HUSKYLENS (General Settings>>Protocol Type>>I2C)"));
+        Serial.println(F("1.Please recheck the \"Protocol Type\" in HUSKYLENS (System Settings>>Protocol Type>> I2C/UART)"));
         Serial.println(F("2.Please recheck the connection."));
+        Serial.println(F("\tgreen line >> SDA/TX; blue line >> SCL/RX"));
         delay(100);
     }
 }
