@@ -344,6 +344,7 @@ int8_t ProtocolV2::getResult(eAlgorithm_t algo) {
         protocolWrite(buffer, length);
         if (wait(COMMAND_RETURN_INFO)) {
             PacketData_t *packet       = (PacketData_t *)head->data;
+            maxID                      = packet->maxID;
             info.total_results         = packet->total_results;
             info.total_results_learned = packet->total_results_learned;
             info.total_blocks          = packet->total_blocks;

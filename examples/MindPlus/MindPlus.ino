@@ -40,7 +40,8 @@ void loop() {
     while (!huskylens.getResult(ALGORITHM_FACE_RECOGNITION)) {
         delay(100);
     }
-
+    Serial.print("maxID=");
+    Serial.println(huskylens.getCachedResultMaxID());
     Serial.print("result->ID=");
     Serial.println(RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, ID));
     Serial.print("result->Center=(");

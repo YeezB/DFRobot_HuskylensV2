@@ -200,6 +200,7 @@ typedef struct __attribute__((packed)) {
 typedef struct __attribute__((packed)) PacketData {
     union {
         int8_t ID;
+        int8_t maxID;
         int8_t rfu0;
         int8_t boardType;
         int8_t totalSensors;

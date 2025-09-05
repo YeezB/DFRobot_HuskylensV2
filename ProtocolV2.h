@@ -39,6 +39,7 @@ class ProtocolV2 {
     bool    setMultiAlgorithmRatio(int8_t ratio0, int8_t ratio1, int8_t ratio2 = -1, int8_t ratio3 = -1, int8_t ratio4 = -1);
 #endif
   public:
+    int16_t       maxID;
     int16_t       total_results;
     int16_t       total_blocks;
     int16_t       total_arrows;

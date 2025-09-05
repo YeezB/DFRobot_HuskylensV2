@@ -129,15 +129,10 @@ Result *HuskylensV2::getCachedResultByID(eAlgorithm_t algo, int16_t ID) {
     algo = 0;
 #endif
     for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
-
         if (result[algo][i] == NULL) {
             continue;
         }
-        if (result[algo][i]->used) {
-            continue;
-        }
         if (result[algo][i]->ID == ID) {
-            result[algo][i]->used = 1;
             return result[algo][i];
         }
     }
@@ -174,4 +169,8 @@ int16_t HuskylensV2::getCachedResultLearnedNum(eAlgorithm_t algo) {
         }
     }
     return count;
+}
+
+int16_t HuskylensV2::getCachedResultMaxID(void) {
+    return maxID;
 }
