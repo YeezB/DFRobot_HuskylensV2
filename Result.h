@@ -209,6 +209,7 @@ typedef struct __attribute__((packed)) PacketData {
     union {
         int8_t rfu1;
         int8_t level;
+        int8_t confidence;
         int8_t currSensorIndex;
     };
     union {

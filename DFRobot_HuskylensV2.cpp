@@ -147,13 +147,10 @@ int16_t HuskylensV2::getCachedResultNum(eAlgorithm_t algo) {
 #endif
 
     for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
-        DBG("\n");
         if (result[algo][i]) {
-            DBG("\n");
             count++;
         }
     }
-    DBG("\n");
     return count;
 }
 
@@ -169,6 +166,38 @@ int16_t HuskylensV2::getCachedResultLearnedNum(eAlgorithm_t algo) {
         }
     }
     return count;
+}
+
+int16_t HuskylensV2::getCachedResultNumByID(eAlgorithm_t algo, uint8_t id) {
+    DBG("\n");
+    int16_t count = 0;
+#ifndef LARGE_MEMORY
+    algo = 0;
+#endif
+    for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
+        if (result[algo][i] && (id == result[algo][i]->ID)) {
+            count++;
+        }
+    }
+    return count;
+}
+
+Result *HuskylensV2::getCachedIndexResultByID(eAlgorithm_t algo, uint8_t id, uint8_t index) {
+    DBG("\n");
+    Result *rlt    = NULL;
+    uint8_t _index = 0;
+#ifndef LARGE_MEMORY
+    algo = 0;
+#endif
+    for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
+        if (result[algo][i] && (id == result[algo][i]->ID)) {
+            if (_index == index) {
+                return result[algo][i];
+            }
+            _index++;
+        }
+    }
+    return rlt;
 }
 
 int16_t HuskylensV2::getCachedResultMaxID(void) {

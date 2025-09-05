@@ -26,6 +26,9 @@ class HuskylensV2 : public ProtocolV2 {
     int16_t getCachedResultNum(eAlgorithm_t algo);
     int16_t getCachedResultLearnedNum(eAlgorithm_t algo);
 
+    int16_t getCachedResultNumByID(eAlgorithm_t algo, uint8_t id);
+    Result *getCachedIndexResultByID(eAlgorithm_t algo, uint8_t id, uint8_t index);
+
     int16_t getCachedResultMaxID(void);
 
   public:

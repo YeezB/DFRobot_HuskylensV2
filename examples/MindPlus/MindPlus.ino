@@ -58,6 +58,12 @@ void loop() {
     Serial.print("result->content=");
     Serial.println(RET_ITEM_STR(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, content));
 
+    Serial.print("result->getCachedResultNumByID()=");
+    Serial.println(huskylens.getCachedResultNumByID(ALGORITHM_FACE_RECOGNITION, 2));
+
+    Serial.print("result->getCachedIndexResultByID() xCenter=");
+    Serial.println(RET_ITEM_NUM(huskylens.getCachedIndexResultByID(ALGORITHM_FACE_RECOGNITION, 2, 2), FaceResult, xCenter));
+
     Serial.print("FaceResult->leye_x=");
     Serial.println(RET_ITEM_NUM(huskylens.getCachedCenterResult(ALGORITHM_FACE_RECOGNITION), FaceResult, leye_x));
     Serial.print("FaceResult->leye_y=");
