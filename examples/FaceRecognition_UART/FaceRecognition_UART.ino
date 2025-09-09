@@ -33,7 +33,7 @@ HuskylensV2 huskylens;
 #define RX_PIN_P0 1
 #define TX_PIN_P1 2
 
-void setup() {
+void setup()  {
     Serial.begin(115200);
     Serial1.begin(115200, SERIAL_8N1, RX_PIN_P0, TX_PIN_P1);
     while (!huskylens.begin(Serial1)) {
