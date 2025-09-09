@@ -146,67 +146,6 @@ bool husky_lens_protocol_receive(uint8_t data) {
   return false;
 }
 
-bool husky_lens_protocol_read_begin(uint8_t command) {
-  if (command == receive_buffer[COMMAND_INDEX]) {
-    content_current = CONTENT_INDEX;
-    content_read_end = false;
-    receive_fail = false;
-    return true;
-  }
-  return false;
-}
-uint8_t husky_lens_protocol_read_uint8() {
-  if (content_current >= content_end || content_read_end) {
-    receive_fail = true;
-    return 0;
-  }
-  uint8_t result;
-  memcpy(&result, receive_buffer + content_current, sizeof(result));
-  content_current += sizeof(result);
-  return result;
-}
-
-int16_t husky_lens_protocol_read_int16() {
-  if (content_current >= content_end || content_read_end) {
-    receive_fail = true;
-    return 0;
-  }
-  int16_t result;
-  memcpy(&result, receive_buffer + content_current, sizeof(result));
-  content_current += sizeof(result);
-  return result;
-}
-
-int32_t husky_lens_protocol_read_int32() {
-  if (content_current >= content_end || content_read_end) {
-    receive_fail = true;
-    return 0;
-  }
-  int32_t result;
-  memcpy(&result, receive_buffer + content_current, sizeof(result));
-  content_current += sizeof(result);
-  return result;
-}
-
-float husky_lens_protocol_read_float() {
-  if (content_current >= content_end || content_read_end) {
-    receive_fail = true;
-    return 0;
-  }
-  float result;
-  memcpy(&result, receive_buffer + content_current, sizeof(result));
-  content_current += sizeof(result);
-  return result;
-}
-
-bool husky_lens_protocol_read_end() {
-  if (receive_fail) {
-    receive_fail = false;
-    return false;
-  }
-  return content_current == content_end;
-}
-
 bool ProtocolV2::wait(uint8_t command) {
   timerBegin();
   while (!timerAvailable()) {
@@ -220,13 +159,6 @@ bool ProtocolV2::wait(uint8_t command) {
         DBG_HEX(receive_buffer[COMMAND_INDEX]);
         return false;
       }
-
-      // if (command) {
-      // if (husky_lens_protocol_read_begin(command))
-      //         return true;
-      // } else {
-      //     return true;
-      // }
     }
   }
   DBG("\n");
@@ -260,10 +192,8 @@ bool ProtocolV2::protocolAvailable() {
     if (!wire->available()) {
       wire->requestFrom(0x50, 16);
     }
-    delay(5);
     while (wire->available()) {
       uint8_t result = wire->read();
-      delay(5);
       if (husky_lens_protocol_receive(result)) {
         DBG("\n");
         return true;

@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include <HardwareSerial.h>
 #include <Stream.h>
-#if 1
+#if 0
 #define DBG(x)                                                                 \
   do {                                                                         \
     Serial.print(__FUNCTION__);                                                \
