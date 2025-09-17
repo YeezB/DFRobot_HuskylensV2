@@ -171,6 +171,7 @@ void ProtocolV2::protocolWrite(uint8_t *buffer, int length) {
     DBG_HEX_ARRAY(buffer, length);
     DBG_PRINT("\n");
     timeOutDuration = 2000;
+    wire->setClock(100000);
     wire->beginTransmission(0x50);
     wire->write(buffer, length);
     wire->endTransmission();
@@ -190,6 +191,7 @@ bool ProtocolV2::timerAvailable() {
 bool ProtocolV2::protocolAvailable() {
   if (wire) {
     if (!wire->available()) {
+      wire->setClock(100000);
       wire->requestFrom(0x50, 16);
     }
     while (wire->available()) {
@@ -237,8 +239,8 @@ bool ProtocolV2::knock(void) {
 
 bool ProtocolV2::switchAlgorithm(eAlgorithm_t algo) {
   DBG("\n");
-  uint8_t *buffer = husky_lens_protocol_write_begin(
-      ALGORITHM_ANY, COMMAND_SET_ALGORITHM);
+  uint8_t *buffer =
+      husky_lens_protocol_write_begin(ALGORITHM_ANY, COMMAND_SET_ALGORITHM);
 
   husky_lens_protocol_write_uint8((uint8_t)algo);
   husky_lens_protocol_write_uint8(0);
@@ -708,7 +710,7 @@ bool ProtocolV2::playMusic(String name, int16_t volume) {
   return false;
 }
 
-bool ProtocolV2::setNameByID(eAlgorithm_t algo, uint8_t id, String name){
+bool ProtocolV2::setNameByID(eAlgorithm_t algo, uint8_t id, String name) {
   DBG("\n");
   uint8_t *buffer =
       husky_lens_protocol_write_begin(algo, COMMAND_SET_NAME_BY_ID);
@@ -730,5 +732,5 @@ bool ProtocolV2::setNameByID(eAlgorithm_t algo, uint8_t id, String name){
       return true;
     }
   }
-  return false;  
+  return false;
 }

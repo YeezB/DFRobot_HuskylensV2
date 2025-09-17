@@ -56,7 +56,6 @@
 
 //  小内存（AVR）只使用基类的内容，大内存MCU（esp32 microbit）可以使用派生类内容
 #ifdef LARGE_MEMORY
-#include <ArduinoJson.h>
 #define FRAME_BUFFER_SIZE 512
 #define MAX_RESULT_NUM 10
 #define CMD_BUFFER_SIZE 512
