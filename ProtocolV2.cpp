@@ -234,7 +234,29 @@ bool ProtocolV2::knock(void) {
   }
   return false;
 }
-bool ProtocolV2::switchAlgorithm(eAlgorithm_t algo) {}
+
+bool ProtocolV2::switchAlgorithm(eAlgorithm_t algo) {
+  DBG("\n");
+  uint8_t *buffer = husky_lens_protocol_write_begin(
+      ALGORITHM_ANY, COMMAND_SET_ALGORITHM);
+
+  husky_lens_protocol_write_uint8((uint8_t)algo);
+  husky_lens_protocol_write_uint8(0);
+  husky_lens_protocol_write_int16(0);
+  husky_lens_protocol_write_int16(0);
+  husky_lens_protocol_write_int16(0);
+  husky_lens_protocol_write_int16(0);
+  int length = husky_lens_protocol_write_end();
+
+  for (int i = 0; i < retry; i++) {
+    protocolWrite(buffer, length);
+    if (wait(COMMAND_RETURN_OK)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 // get info 获取统计信息
 PacketData_t ProtocolV2::getInfo(eAlgorithm_t algo) {
   uint8_t *buffer = husky_lens_protocol_write_begin(algo, COMMAND_GET_INFO);

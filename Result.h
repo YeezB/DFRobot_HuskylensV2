@@ -50,7 +50,7 @@
 
 #include "Wire.h"
 
-#if defined(ESP32) || defined(ARDUINO_ARCH_NRF5)
+#if defined(ESP32) || defined(NRF5) || defined(ESP8266)
 #define LARGE_MEMORY 1
 #endif
 
@@ -190,16 +190,15 @@ typedef struct __attribute__((packed)) {
     if (length == 0) {
       return String("");
     }
-#ifdef ESP32
-    return String((const char *)data, length);
-#else
     char *buf = (char *)malloc(length + 1);
+    if (buf == NULL) {
+      return String("");
+    }
     memcpy(buf, data, length);
     buf[length] = 0;
     String str(buf);
     free(buf);
     return str;
-#endif
   }
 } String_t;
 
