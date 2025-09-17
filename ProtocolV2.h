@@ -36,6 +36,7 @@ public:
   bool saveKnowledges(eAlgorithm_t algo, uint8_t knowledgeID);
   bool loadKnowledges(eAlgorithm_t algo, uint8_t knowledgeID);
   bool playMusic(String name, int16_t volume);
+  bool setNameByID(eAlgorithm_t algo, uint8_t id, String name);
 
 #ifdef LARGE_MEMORY
   bool doSetMultiAlgorithm(eAlgorithm_t algo0, eAlgorithm_t algo1,

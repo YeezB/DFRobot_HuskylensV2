@@ -31,7 +31,7 @@ int8_t HuskylensV2::getResult(eAlgorithm_t algo) {
 #ifdef LARGE_MEMORY
   algo = toRealID(algo);
 #else
-  algo = 0;
+  algo = (eAlgorithm_t)0;
 #endif
 
   for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
@@ -57,7 +57,7 @@ bool HuskylensV2::available(eAlgorithm_t algo) {
 #ifdef LARGE_MEMORY
   algo = toRealID(algo);
 #else
-  algo = 0;
+  algo = (eAlgorithm_t)0;
 #endif
 
   for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
@@ -77,7 +77,7 @@ Result *HuskylensV2::popCachedResult(eAlgorithm_t algo) {
 #ifdef LARGE_MEMORY
   algo = toRealID(algo);
 #else
-  algo = 0;
+  algo = (eAlgorithm_t)0;
 #endif
   for (int8_t i = 0; i < MAX_RESULT_NUM; i++) {
     if (result[algo][i]) {
@@ -113,7 +113,7 @@ Result *HuskylensV2::getCachedCenterResult(eAlgorithm_t algo) {
 #ifdef LARGE_MEMORY
   algo = toRealID(algo);
 #else
-  algo = 0;
+  algo = (eAlgorithm_t)0;
 #endif
 
   int8_t centerIndex = -1;
@@ -139,7 +139,7 @@ Result *HuskylensV2::getCachedResultByIndex(eAlgorithm_t algo, int16_t index) {
 #ifdef LARGE_MEMORY
   algo = toRealID(algo);
 #else
-  algo = 0;
+  algo = (eAlgorithm_t)0;
 #endif
   if (index >= MAX_RESULT_NUM) {
     return NULL;
@@ -152,7 +152,7 @@ Result *HuskylensV2::getCachedResultByID(eAlgorithm_t algo, int16_t ID) {
 #ifdef LARGE_MEMORY
   algo = toRealID(algo);
 #else
-  algo = 0;
+  algo = (eAlgorithm_t)0;
 #endif
   for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
     if (result[algo][i] == NULL) {
@@ -171,7 +171,7 @@ int16_t HuskylensV2::getCachedResultNum(eAlgorithm_t algo) {
 #ifdef LARGE_MEMORY
   algo = toRealID(algo);
 #else
-  algo = 0;
+  algo = (eAlgorithm_t)0;
 #endif
 
   for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
@@ -188,7 +188,7 @@ int16_t HuskylensV2::getCachedResultLearnedNum(eAlgorithm_t algo) {
 #ifdef LARGE_MEMORY
   algo = toRealID(algo);
 #else
-  algo = 0;
+  algo = (eAlgorithm_t)0;
 #endif
   for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
     if (result[algo][i] && result[algo][i]->ID) {
@@ -204,7 +204,7 @@ int16_t HuskylensV2::getCachedResultNumByID(eAlgorithm_t algo, uint8_t id) {
 #ifdef LARGE_MEMORY
   algo = toRealID(algo);
 #else
-  algo = 0;
+  algo = (eAlgorithm_t)0;
 #endif
   for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
     if (result[algo][i] && (id == result[algo][i]->ID)) {
@@ -222,7 +222,7 @@ Result *HuskylensV2::getCachedIndexResultByID(eAlgorithm_t algo, uint8_t id,
 #ifdef LARGE_MEMORY
   algo = toRealID(algo);
 #else
-  algo = 0;
+  algo = (eAlgorithm_t)0;
 #endif
   for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
     if (result[algo][i] && (id == result[algo][i]->ID)) {
@@ -237,6 +237,7 @@ Result *HuskylensV2::getCachedIndexResultByID(eAlgorithm_t algo, uint8_t id,
 
 int16_t HuskylensV2::getCachedResultMaxID(void) { return maxID; }
 
+#ifdef LARGE_MEMORY
 bool HuskylensV2::setMultiAlgorithm(eAlgorithm_t algo0, eAlgorithm_t algo1,
                                     eAlgorithm_t algo2, eAlgorithm_t algo3,
                                     eAlgorithm_t algo4) {
@@ -260,3 +261,4 @@ bool HuskylensV2::setMultiAlgorithm(eAlgorithm_t algo0, eAlgorithm_t algo1,
   }
   return doSetMultiAlgorithm(algo0, algo1, algo2, algo3, algo4);
 }
+#endif

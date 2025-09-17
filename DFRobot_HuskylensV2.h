@@ -17,7 +17,6 @@ public:
   bool begin(TwoWire &streamInput);
 
   int8_t getResult(eAlgorithm_t algo);
-  bool setNameByID(eAlgorithm_t algo);
   bool available(eAlgorithm_t algo);
 
   Result *popCachedResult(eAlgorithm_t algo);

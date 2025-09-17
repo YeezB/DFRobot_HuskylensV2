@@ -685,3 +685,28 @@ bool ProtocolV2::playMusic(String name, int16_t volume) {
   }
   return false;
 }
+
+bool ProtocolV2::setNameByID(eAlgorithm_t algo, uint8_t id, String name){
+  DBG("\n");
+  uint8_t *buffer =
+      husky_lens_protocol_write_begin(algo, COMMAND_SET_NAME_BY_ID);
+  husky_lens_protocol_write_uint8(0);
+  husky_lens_protocol_write_uint8(0);
+
+  husky_lens_protocol_write_int16(0);
+  husky_lens_protocol_write_int16(0);
+  husky_lens_protocol_write_int16(0);
+  husky_lens_protocol_write_int16(0);
+  husky_lens_protocol_write_uint8(name.length());
+  husky_lens_protocol_write_buffer_uint8((uint8_t *)name.c_str(),
+                                         name.length());
+  int length = husky_lens_protocol_write_end();
+
+  for (int i = 0; i < retry; i++) {
+    protocolWrite(buffer, length);
+    if (wait(COMMAND_RETURN_OK)) {
+      return true;
+    }
+  }
+  return false;  
+}
