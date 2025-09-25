@@ -237,6 +237,56 @@ Result *HuskylensV2::getCachedIndexResultByID(eAlgorithm_t algo, uint8_t id,
 
 int16_t HuskylensV2::getCachedResultMaxID(void) { return maxID; }
 
+
+Result *HuskylensV2::getCurrentBranch(eAlgorithm_t algo){
+  DBG("\n");
+  Result *rlt = NULL;
+#ifdef LARGE_MEMORY
+  algo = toRealID(algo);
+#else
+  algo = (eAlgorithm_t)0;
+#endif
+  if (result[algo][0] && (result[algo][0]->level==1)) {
+    return result[algo][0];
+  }
+}
+
+int8_t HuskylensV2::getUpcomingBranchCount(eAlgorithm_t algo){
+  DBG("\n");
+  int8_t count  = 0;
+#ifdef LARGE_MEMORY
+  algo = toRealID(algo);
+#else
+  algo = (eAlgorithm_t)0;
+#endif
+   for (uint8_t i = 0; i < MAX_RESULT_NUM; i++) {
+    if (result[algo][i]) {
+      count++;
+    }
+  }
+  return count>0 ? count-1 : 0;
+}
+
+Result *HuskylensV2::getBranch(eAlgorithm_t algo , int16_t index){
+  DBG("\n");
+  Result *rlt = NULL;
+  index++;
+#ifdef LARGE_MEMORY
+  algo = toRealID(algo);
+#else
+  algo = (eAlgorithm_t)0;
+#endif
+   for (uint8_t i = 1; i < MAX_RESULT_NUM; i++) {
+    if (result[algo][i]) {
+      if(i == index){
+        rlt = result[algo][i];
+        break;
+      }
+    }
+  }
+  return rlt;
+}
+
 #ifdef LARGE_MEMORY
 bool HuskylensV2::setMultiAlgorithm(eAlgorithm_t algo0, eAlgorithm_t algo1,
                                     eAlgorithm_t algo2, eAlgorithm_t algo3,

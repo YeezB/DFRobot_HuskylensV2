@@ -29,8 +29,11 @@ public:
   int16_t getCachedResultNumByID(eAlgorithm_t algo, uint8_t id);
   Result *getCachedIndexResultByID(eAlgorithm_t algo, uint8_t id,
                                    uint8_t index);
-
   int16_t getCachedResultMaxID(void);
+
+  Result *getCurrentBranch(eAlgorithm_t algo);
+  int8_t getUpcomingBranchCount(eAlgorithm_t algo);
+  Result *getBranch(eAlgorithm_t algo , int16_t index);
 #ifdef LARGE_MEMORY
   bool setMultiAlgorithm(eAlgorithm_t algo0, eAlgorithm_t algo1,
                          eAlgorithm_t algo2 = ALGORITHM_ANY,

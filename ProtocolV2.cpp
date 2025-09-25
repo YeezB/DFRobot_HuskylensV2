@@ -123,7 +123,7 @@ bool husky_lens_protocol_receive(uint8_t data) {
     receive_buffer[ALGO_INDEX] = data;
     break;
   case CONTENT_SIZE_INDEX:
-    if ((int)data >= FRAME_BUFFER_SIZE - PROTOCOL_SIZE) {
+    if ((int)receive_index >= FRAME_BUFFER_SIZE - PROTOCOL_SIZE) {
       receive_index = 0;
       return false;
     }
