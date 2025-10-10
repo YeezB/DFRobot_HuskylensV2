@@ -201,7 +201,7 @@ typedef struct __attribute__((packed)) {
   }
 } String_t;
 
-typedef struct __attribute__((packed)) PacketData {
+typedef struct __attribute__((packed))  {
   union {
     int8_t ID;
     int8_t maxID;
