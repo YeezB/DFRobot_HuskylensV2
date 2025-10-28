@@ -39,8 +39,9 @@ Result::Result(const void *buf) {
 }
 Result::~Result() {
 }
+
 #ifdef LARGE_MEMORY
-#define READ_INT16(p) ({ int16_t v; memcpy(&v, p, sizeof(v)); p += sizeof(v); v; })
+#define READ_INT16(p) ({ int16_t v; memcpy(&v, p, sizeof(v)); p++; v; })
 FaceResult::FaceResult(const void *buf) : Result(buf) {
     DBG("\n");
     PacketHead_t *head     = (PacketHead_t *)buf;
