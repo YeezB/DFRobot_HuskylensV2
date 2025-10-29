@@ -18,8 +18,10 @@ import os
 sys.path.append("../")
 from dfrobot_huskylensv2 import *
 
-Board("rpi").begin()
+
+Board("rpi").begin()#Comment this line when using UNIHIKER M10
 Board().begin()
+
 huskylens = HuskylensV2_I2C()
 huskylens.knock()
 huskylens.switchAlgorithm(ALGORITHM_OBJECT_RECOGNITION)

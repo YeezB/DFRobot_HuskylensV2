@@ -4,5 +4,23 @@
     "C_Cpp.clang_format_path": "clang-format",
     "C_Cpp.clang_format_sortIncludes": false,
     "C_Cpp.clang_format_style": "{     BasedOnStyle: LLVM,     IndentWidth: 4,     UseTab: Never,     AlignConsecutiveAssignments: true,     AlignConsecutiveDeclarations: true,     AlignConsecutiveMacros: true,     BreakBeforeBraces: Attach,     AllowShortFunctionsOnASingleLine: Empty,     ColumnLimit: 0,     SortIncludes: false }",
-    "C_Cpp.formatting": "clangFormat"
+    "C_Cpp.formatting": "clangFormat",
+    "MicroPython.executeButton": [
+        {
+            "text": "▶",
+            "tooltip": "运行",
+            "alignment": "left",
+            "command": "extension.executeFile",
+            "priority": 3.5
+        }
+    ],
+    "MicroPython.syncButton": [
+        {
+            "text": "$(sync)",
+            "tooltip": "同步",
+            "alignment": "left",
+            "command": "extension.execute",
+            "priority": 4
+        }
+    ]
 }

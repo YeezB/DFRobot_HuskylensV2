@@ -131,6 +131,7 @@ Refer to the table below for the permitted parameters of the **algo** and **resu
 |Dev Board         | Work Well | Work Wrong  | Untested | Remarks |
 | ------------ | :--: | :----: | :----: | :--: |
 | Raspberry Pi 4B |  √   |        |        |      |
+| UNIHIKER M10 |  √   |        |        |      |
 
 * Python version 
 
