@@ -15,7 +15,7 @@
 
 ## Summary
 
-This library provides a way to drive the HuskyLensV2 under the Raspberry Pi via pinpong lib
+This library provides a way to drive the HuskyLensV2 under the Raspberry Pi/UNIHIKER M10 via pinpong lib
 
 ## Installation
 This library depends on the pinpong library, please ensure that pinpong has been installed via the following cmd before using this library. 
